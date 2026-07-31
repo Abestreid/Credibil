@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#000f2e"/>
+  <g opacity=".12" stroke="#fff"><path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200"/><path d="M90 0v630M180 0v630M270 0v630M360 0v630M450 0v630M540 0v630M630 0v630M720 0v630M810 0v630M900 0v630M990 0v630M1080 0v630"/></g>
+  <g transform="translate(84 72)">
+    <path d="M62 0A62 62 0 1 0 62 124" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round"/>
+    <path d="M34 62l21 21 41-51" fill="none" stroke="#2a9c6f" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="235" y="165" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="86" font-weight="500">Credibil</text>
+  <text x="84" y="328" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="700">Verificați înainte de</text>
+  <text x="84" y="400" fill="#72c7a5" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="700">decizia de afaceri</text>
+  <text x="84" y="488" fill="#c7d1d4" font-family="Inter, Arial, sans-serif" font-size="28">Companii, persoane asociate, rapoarte și monitorizare</text>
+</svg>

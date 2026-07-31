@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000f2e" />
+  <meta name="description" content="Credibil помогает проверять компании и связанные лица в Молдове, изучать корпоративные связи, доступные риск-факторы, формировать отчёты и отслеживать изменения." />
+  <title>Credibil - проверка контрагентов в Молдове</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+  <div class="page-noise" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header class="site-header" data-header>
+    <div class="header-inner">
+      <a href="#top" class="brand" aria-label="Credibil - на главную">
+        <svg class="brand-mark" viewBox="0 0 64 76" aria-hidden="true">
+          <path class="brand-c" d="M50.5 12.5C45 7.6 38.3 5 31.2 5C16.7 5 5 17.6 5 33.2v9.6C5 58.4 16.7 71 31.2 71c7.2 0 13.9-2.7 19.4-7.6"/>
+          <path class="brand-check" d="M20 39.8l8.1 8.6L47.5 25"/>
+        </svg>
+        <span>Credibil</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Основная навигация">
+        <a href="#product">Продукт</a>
+        <a href="#connections">Связи</a>
+        <a href="#monitoring">Мониторинг</a>
+        <a href="#sources">Источники</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="language" type="button" aria-label="Выбрать язык">RU <span>⌄</span></button>
+        <a class="login-link" href="/ru/login">Войти</a>
+        <a class="button button-small button-green" href="#search">Проверить</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <a href="#product">Продукт</a>
+      <a href="#connections">Связи</a>
+      <a href="#monitoring">Мониторинг</a>
+      <a href="#sources">Источники</a>
+      <a href="/ru/login">Войти</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-a" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-b" aria-hidden="true"></div>
+
+      <div class="container hero-layout">
+        <div class="hero-copy">
+          <div class="eyebrow reveal">Проверка контрагентов в Молдове</div>
+          <h1 class="hero-title" data-split>
+            Решения начинаются<br>
+            <span class="title-accent">с проверки.</span>
+          </h1>
+          <p class="hero-lead reveal">
+            Найдите компанию или связанное лицо, изучите регистрационные сведения, корпоративные связи и доступные факторы риска до принятия делового решения.
+          </p>
+
+          <form class="hero-search reveal" id="search" novalidate>
+            <label class="sr-only" for="company-search">Название компании, IDNO или ФИО</label>
+            <div class="search-shell">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>
+              <input id="company-search" name="query" autocomplete="off" placeholder="Название компании, IDNO или ФИО" />
+              <button type="submit">Проверить <span>↗</span></button>
+            </div>
+            <div class="search-suggestions" hidden aria-live="polite">
+              <button type="button" data-query="ABESVEB">
+                <span class="suggestion-icon">C</span>
+                <span><strong>Societatea cu Răspundere Limitată ABESVEB</strong><small>IDNO 1023600026284</small></span>
+                <span class="suggestion-tag">Компания</span>
+              </button>
+              <button type="button" data-query="Bodjgua Abessalom">
+                <span class="suggestion-icon">P</span>
+                <span><strong>Bodjgua Abessalom</strong><small>Связанное лицо</small></span>
+                <span class="suggestion-tag">Лицо</span>
+              </button>
+            </div>
+            <p class="search-note">Поиск по названию, IDNO и ФИО. Полный отчёт доступен после входа.</p>
+          </form>
+
+          <div class="hero-meta reveal">
+            <a href="#product">Посмотреть возможности <span>↓</span></a>
+            <span>PDF</span><span>Excel</span><span>Мониторинг</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" data-parallax-zone>
+          <div class="orbit orbit-one" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="hero-mark" aria-hidden="true">
+            <svg viewBox="0 0 300 340">
+              <path class="hero-c" d="M239 59C216 38 187 26 155 26C86 26 30 84 30 155v30c0 71 56 129 125 129 32 0 61-12 84-33"/>
+              <path class="hero-check" d="M105 178l37 39 88-110"/>
+            </svg>
+          </div>
+
+          <article class="floating-card company-card" data-depth="0.5">
+            <div class="card-topline"><span>Карточка компании</span><i></i></div>
+            <div class="company-name">VISPY S.R.L.</div>
+            <div class="company-id">IDNO 1026023120722</div>
+            <div class="status-row"><span class="status status-success">Активна</span><span>Обновлено сегодня</span></div>
+            <div class="mini-grid">
+              <div><small>Учредители</small><strong>2</strong></div>
+              <div><small>Связанные компании</small><strong>30</strong></div>
+              <div><small>Мониторинг</small><strong>Включён</strong></div>
+            </div>
+          </article>
+
+          <article class="floating-card risk-card" data-depth="0.85">
+            <span class="risk-label">Проверка</span>
+            <strong>7 блоков данных</strong>
+            <div class="risk-meter"><span></span></div>
+            <small>Регистрация, связи, суды, закупки, санкции</small>
+          </article>
+
+          <article class="floating-card event-card" data-depth="1.05">
+            <span class="event-pulse"></span>
+            <div><small>Мониторинг изменений</small><strong>Новый администратор</strong></div>
+            <span class="event-time">14:32</span>
+          </article>
+        </div>
+      </div>
+
+      <div class="hero-ticker" aria-label="Возможности Credibil">
+        <div class="ticker-track">
+          <span>КОМПАНИИ</span><i></i><span>IDNO</span><i></i><span>СВЯЗИ</span><i></i><span>СУДЫ</span><i></i><span>ОТЧЁТЫ</span><i></i><span>МОНИТОРИНГ</span><i></i>
+          <span>КОМПАНИИ</span><i></i><span>IDNO</span><i></i><span>СВЯЗИ</span><i></i><span>СУДЫ</span><i></i><span>ОТЧЁТЫ</span><i></i><span>МОНИТОРИНГ</span><i></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof-strip">
+      <div class="container proof-grid">
+        <div class="proof-intro reveal"><span>01</span><p>Не каталог компаний, а рабочий инструмент проверки.</p></div>
+        <div class="proof-item reveal"><strong>Поиск</strong><p>Компании и лица по названию, IDNO и ФИО.</p></div>
+        <div class="proof-item reveal"><strong>Отчёт</strong><p>Структурированный результат в PDF и Excel.</p></div>
+        <div class="proof-item reveal"><strong>Контроль</strong><p>Мониторинг выбранных компаний и изменений.</p></div>
+      </div>
+    </section>
+
+    <section class="statement section-light">
+      <div class="container statement-layout">
+        <div class="section-index reveal">02 / ПОДХОД</div>
+        <div>
+          <h2 class="statement-title" data-split>Не верьте на слово.<br><span>Проверяйте по данным.</span></h2>
+          <div class="statement-copy">
+            <p class="reveal">Credibil собирает доступные сведения о компаниях и связанных лицах и превращает разрозненные записи в понятную структуру для делового решения.</p>
+            <p class="reveal">Сначала вы видите субъект проверки, затем его статус, владельцев, связи, события и доступные разделы отчёта.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-showcase" id="product">
+      <div class="container product-layout">
+        <div class="product-copy">
+          <div class="section-index light reveal">03 / ЖИВОЙ ПРОДУКТ</div>
+          <h2 class="reveal">Не обещания.<br>Реальные экраны.</h2>
+          <p class="reveal">Показываем фактический интерфейс Credibil: поиск, карточку компании, корпоративные связи и мониторинг.</p>
+          <div class="product-tabs" role="tablist" aria-label="Экраны продукта">
+            <button class="product-tab active" role="tab" aria-selected="true" data-screen="search">01 Поиск</button>
+            <button class="product-tab" role="tab" aria-selected="false" data-screen="company">02 Карточка</button>
+            <button class="product-tab" role="tab" aria-selected="false" data-screen="monitoring">03 Мониторинг</button>
+          </div>
+          <div class="screen-caption" aria-live="polite">
+            <strong>Поиск компаний и лиц</strong>
+            <span>Autocomplete разделяет юридические и физические лица.</span>
+          </div>
+        </div>
+
+        <div class="screen-stage reveal">
+          <div class="browser-frame">
+            <div class="browser-bar"><span></span><span></span><span></span><small>app.credibil.md</small></div>
+            <div class="screen-canvas">
+              <img class="screen-image active" data-image="search" src="assets/search.webp" alt="Поиск компаний и лиц в интерфейсе Credibil" />
+              <img class="screen-image" data-image="company" src="assets/company-top.webp" alt="Карточка компании в интерфейсе Credibil" loading="lazy" />
+              <img class="screen-image" data-image="monitoring" src="assets/monitoring.webp" alt="Мониторинг компаний в интерфейсе Credibil" loading="lazy" />
+            </div>
+          </div>
+          <div class="stage-label stage-label-a">REAL UI</div>
+          <div class="stage-label stage-label-b">MOLDOVA DATA</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="connections section-light" id="connections">
+      <div class="container connection-layout">
+        <div class="connection-copy">
+          <div class="section-index reveal">04 / АФФИЛИРОВАННОСТЬ</div>
+          <h2 class="reveal">Смотрите дальше<br>одной компании.</h2>
+          <p class="reveal">Credibil показывает роли связанных лиц, доли владения, активные и ликвидированные организации в одном контексте.</p>
+          <ul class="feature-list reveal">
+            <li><span>01</span>Учредители и администраторы</li>
+            <li><span>02</span>Связанные компании и роли</li>
+            <li><span>03</span>Активные и ликвидированные организации</li>
+          </ul>
+          <a href="#final" class="text-link reveal">Проверить связи <span>↗</span></a>
+        </div>
+
+        <div class="network-card reveal" aria-label="Пример схемы корпоративных связей">
+          <svg class="network-lines" viewBox="0 0 720 600" aria-hidden="true">
+            <path d="M360 300 C280 220 225 160 160 120"/>
+            <path d="M360 300 C460 225 520 175 585 125"/>
+            <path d="M360 300 C280 390 230 445 145 490"/>
+            <path d="M360 300 C455 375 535 430 610 500"/>
+            <path d="M360 300 C355 190 355 120 355 70"/>
+          </svg>
+          <div class="network-node node-center">
+            <div class="node-icon">C</div><strong>VISPY S.R.L.</strong><span>Текущая компания</span>
+          </div>
+          <div class="network-node node-a"><small>Директор</small><strong>Balan Natalia</strong><span>30 компаний</span></div>
+          <div class="network-node node-b"><small>Учредитель</small><strong>Balan Victor</strong><span>50% владения</span></div>
+          <div class="network-node node-c"><small>Связь</small><strong>Active Group S.R.L.</strong><span class="status-dot">Активна</span></div>
+          <div class="network-node node-d"><small>Связь</small><strong>Comert Expert S.R.L.</strong><span class="status-dot danger">Ликвидирована</span></div>
+          <div class="network-node node-e"><small>Учредитель</small><strong>Hristiuc Andrei</strong><span>2 компании</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="risk-section">
+      <div class="container">
+        <div class="risk-header">
+          <div class="section-index light reveal">05 / ПРОВЕРЯЕМЫЕ БЛОКИ</div>
+          <h2 class="reveal">Один отчёт.<br>Несколько уровней проверки.</h2>
+          <p class="reveal">Наличие данных зависит от конкретной компании и подключённых источников.</p>
+        </div>
+
+        <div class="risk-bento">
+          <article class="risk-tile tile-large reveal">
+            <div class="tile-icon">↔</div>
+            <span class="tile-number">01</span>
+            <h3>Регистрация и статус</h3>
+            <p>IDNO, дата регистрации, адрес, правовая форма, CAEM и классификационные сведения.</p>
+            <div class="data-lines"><i></i><i></i><i></i><i></i></div>
+          </article>
+          <article class="risk-tile reveal">
+            <div class="tile-icon">⌁</div><span class="tile-number">02</span><h3>Финансы</h3><p>Доступные финансовые отчёты и налоговая задолженность.</p>
+          </article>
+          <article class="risk-tile reveal">
+            <div class="tile-icon">§</div><span class="tile-number">03</span><h3>Суды</h3><p>Проверка наличия судебных дел и связанных событий.</p>
+          </article>
+          <article class="risk-tile reveal">
+            <div class="tile-icon">◎</div><span class="tile-number">04</span><h3>Закупки</h3><p>Доступные сведения о государственных закупках.</p>
+          </article>
+          <article class="risk-tile tile-green reveal">
+            <div class="tile-icon">✓</div><span class="tile-number">05</span><h3>Аккредитации</h3><p>Отдельный раздел данных MOLDAC и связь с компаниями.</p>
+          </article>
+          <article class="risk-tile tile-wide reveal">
+            <div class="tile-icon">!</div><span class="tile-number">06</span><h3>Исполнительные сведения и санкции</h3><p>Отдельные блоки проверки с прозрачным статусом наличия или доступности данных.</p>
+            <div class="tile-tags"><span>UNEJ</span><span>OFAC</span><span>EU</span><span>UN</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="monitoring" id="monitoring">
+      <div class="container monitoring-layout">
+        <div class="monitoring-copy">
+          <div class="section-index light reveal">06 / МОНИТОРИНГ</div>
+          <h2 class="reveal">Проверка сегодня.<br><span>Контроль завтра.</span></h2>
+          <p class="reveal">Добавьте важную компанию в мониторинг, чтобы отслеживать изменения после начала сотрудничества.</p>
+          <a class="button button-green reveal" href="#final">Включить мониторинг</a>
+        </div>
+
+        <div class="timeline" aria-label="Пример ленты мониторинга">
+          <div class="timeline-line"><span></span></div>
+          <article class="timeline-event reveal">
+            <time>14:32</time><div class="timeline-dot danger"></div><div><small>Требует внимания</small><strong>Изменён администратор</strong><p>Старое и новое значение фиксируются в событии.</p></div>
+          </article>
+          <article class="timeline-event reveal">
+            <time>11:08</time><div class="timeline-dot"></div><div><small>Информационное изменение</small><strong>Обновлён юридический адрес</strong><p>Дата изменения и источник доступны в карточке.</p></div>
+          </article>
+          <article class="timeline-event reveal">
+            <time>09:15</time><div class="timeline-dot success"></div><div><small>Обновление данных</small><strong>Налоговые сведения проверены</strong><p>Система сохраняет дату последней проверки.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="reports section-light">
+      <div class="container reports-layout">
+        <div class="report-stack reveal" aria-hidden="true">
+          <div class="report-sheet sheet-back"></div>
+          <div class="report-sheet sheet-middle"></div>
+          <div class="report-sheet sheet-front">
+            <div class="report-head"><span>Credibil</span><b>REPORT / 2026</b></div>
+            <div class="report-company">VISPY S.R.L.</div>
+            <div class="report-id">IDNO 1026023120722</div>
+            <div class="report-status">АКТИВНА</div>
+            <div class="report-chart"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="report-lines"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="format-badge pdf">PDF</div>
+          <div class="format-badge xls">XLSX</div>
+        </div>
+
+        <div class="reports-copy">
+          <div class="section-index reveal">07 / РЕЗУЛЬТАТ</div>
+          <h2 class="reveal">Зафиксируйте<br>результат проверки.</h2>
+          <p class="reveal">Сформируйте PDF для согласования и хранения или экспортируйте данные в Excel для дальнейшей работы.</p>
+          <div class="report-options reveal">
+            <div><strong>PDF</strong><span>Читаемый отчёт на выбранную дату</span></div>
+            <div><strong>XLSX</strong><span>Структурированные данные для анализа</span></div>
+          </div>
+          <a class="text-link reveal" href="#final">Сформировать отчёт <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps">
+      <div class="container">
+        <div class="steps-header">
+          <div class="section-index reveal">08 / СЦЕНАРИЙ</div>
+          <h2 class="reveal">От запроса к решению<br>за три понятных шага.</h2>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card reveal"><span>01</span><div class="step-icon">⌕</div><h3>Найдите</h3><p>Введите название компании, IDNO или ФИО.</p></article>
+          <article class="step-card reveal"><span>02</span><div class="step-icon">◫</div><h3>Проверьте</h3><p>Изучите статус, владельцев, связи и доступные события.</p></article>
+          <article class="step-card reveal"><span>03</span><div class="step-icon">↗</div><h3>Сохраните</h3><p>Скачайте отчёт или добавьте компанию в мониторинг.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sources section-light" id="sources">
+      <div class="container sources-layout">
+        <div class="sources-copy">
+          <div class="section-index reveal">09 / МОЛДОВА</div>
+          <h2 class="reveal">Локальная проверка.<br>Понятная структура.</h2>
+          <p class="reveal">Credibil работает с данными о компаниях и связанных лицах в Республике Молдова и показывает источник и дату актуальности там, где это доступно.</p>
+          <div class="source-chips reveal">
+            <span>Компании</span><span>SFS</span><span>Суды</span><span>UNEJ</span><span>MTender</span><span>MOLDAC</span>
+          </div>
+          <p class="source-disclaimer reveal">Credibil не является государственным органом и не заменяет юридическое заключение.</p>
+        </div>
+
+        <div class="moldova-visual reveal" aria-hidden="true">
+          <div class="moldova-dots"></div>
+          <div class="map-shield"><span>✓</span></div>
+          <div class="map-pulse pulse-a"></div>
+          <div class="map-pulse pulse-b"></div>
+          <div class="map-label label-chisinau">Chișinău</div>
+          <div class="map-label label-balti">Bălți</div>
+          <div class="map-label label-cahul">Cahul</div>
+        </div>
+      </div>
+      <p class="map-credit">Контур карты: Wikimedia Commons, NordNordWest, CC BY-SA 3.0.</p>
+    </section>
+
+    <section class="final-cta" id="final">
+      <div class="final-grid" aria-hidden="true"></div>
+      <div class="container final-layout">
+        <div>
+          <div class="section-index light reveal">10 / НАЧАТЬ</div>
+          <h2 class="reveal">Проверьте контрагента<br>до принятия решения.</h2>
+        </div>
+        <div class="final-action reveal">
+          <p>Найдите компанию по названию или IDNO и перейдите к структурированным сведениям о статусе, владельцах, связях и доступных рисках.</p>
+          <a class="button button-large button-green" href="#search">Начать проверку <span>↗</span></a>
+        </div>
+      </div>
+      <div class="final-word" aria-hidden="true">CREDIBIL</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <svg class="brand-mark" viewBox="0 0 64 76" aria-hidden="true"><path class="brand-c" d="M50.5 12.5C45 7.6 38.3 5 31.2 5C16.7 5 5 17.6 5 33.2v9.6C5 58.4 16.7 71 31.2 71c7.2 0 13.9-2.7 19.4-7.6"/><path class="brand-check" d="M20 39.8l8.1 8.6L47.5 25"/></svg>
+          <span>Credibil</span>
+        </a>
+        <p>Инструмент проверки контрагентов и контроля изменений.</p>
+      </div>
+      <div><strong>Продукт</strong><a href="#product">Поиск</a><a href="#connections">Связи</a><a href="#monitoring">Мониторинг</a><a href="#sources">Источники</a></div>
+      <div><strong>Доступ</strong><a href="/ru/login">Войти</a><a href="#search">Начать проверку</a><a href="#product">Пример продукта</a></div>
+      <div><strong>Информация</strong><a href="#">Политика конфиденциальности</a><a href="#">Условия использования</a><a href="#">Контакты</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 Credibil</span><span>RO / EN / RU</span></div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite" hidden>
+    <strong>Запрос сохранён</strong>
+    <span>Для открытия полного отчёта требуется вход.</span>
+    <a href="/ru/login">Перейти ко входу</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000f2e">
+  <meta name="color-scheme" content="light">
+  <title>Credibil - Verificarea companiilor și a persoanelor asociate</title>
+  <meta name="description" content="Verificați o companie sau o persoană asociată din Republica Moldova, consultați datele disponibile, conexiunile, rapoartele și monitorizarea schimbărilor.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Credibil - Verificați înainte de a lua o decizie de afaceri">
+  <meta property="og:description" content="Căutați după denumire, IDNO sau nume și consultați datele disponibile despre companie, conexiuni și factori care necesită atenție.">
+  <meta property="og:image" content="/assets/credibil-og.png">
+  <link rel="canonical" href="/ro/">
+  <link rel="alternate" hreflang="ro" href="/ro/">
+  <link rel="alternate" hreflang="en" href="/en/">
+  <link rel="alternate" hreflang="x-default" href="/ro/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/product-company-1350.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Sari la conținut</a>
+
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21h18"></path><path d="M6 21V4h12v17"></path><path d="M9 8h2"></path><path d="M13 8h2"></path><path d="M9 12h2"></path><path d="M13 12h2"></path><path d="M9 16h6"></path></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M8 13h8"></path><path d="M8 17h8"></path></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"></circle><circle cx="5" cy="19" r="3"></circle><circle cx="19" cy="19" r="3"></circle><path d="M10.5 7.5 6.5 16"></path><path d="m13.5 7.5 4 8.5"></path><path d="M8 19h8"></path></symbol>
+    <symbol id="i-tax" viewBox="0 0 24 24"><path d="M3 6h18"></path><path d="M7 3v6"></path><path d="M17 3v6"></path><rect x="4" y="6" width="16" height="15" rx="2"></rect><path d="m8 14 2 2 5-5"></path></symbol>
+    <symbol id="i-court" viewBox="0 0 24 24"><path d="M3 21h18"></path><path d="M6 18h12"></path><path d="M7 18V9"></path><path d="M12 18V9"></path><path d="M17 18V9"></path><path d="m3 9 9-6 9 6z"></path></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"></circle><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.11"></path></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path><path d="M12 15V3"></path></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12"></path><circle cx="12" cy="12" r="3"></circle></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13"></path><path d="M8 12h13"></path><path d="M8 18h13"></path><path d="M3 6h.01"></path><path d="M3 12h.01"></path><path d="M3 18h.01"></path></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12"></path><path d="m18 6-12 12"></path></symbol>
+  </svg>
+
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Credibil">
+        <img src="assets/credibil-logo-light.svg" width="187" height="54" alt="Credibil">
+      </a>
+
+      <nav class="desktop-nav" aria-label="Navigare principală">
+        <a href="#capabilities" data-i18n="navCapabilities">Posibilități</a>
+        <a href="#product" data-i18n="navProduct">Produs</a>
+        <a href="#monitoring" data-i18n="navMonitoring">Monitorizare</a>
+        <a href="#moldac" data-i18n="navMoldac">MOLDAC</a>
+        <a href="#how" data-i18n="navHow">Cum funcționează</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="language-switch" role="group" aria-label="Limbă">
+          <button class="language-button is-active" type="button" data-lang="ro" aria-pressed="true">RO</button>
+          <span aria-hidden="true">/</span>
+          <button class="language-button" type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a class="button button-ghost header-login" href="/ru/login" data-track="login" data-i18n="login">Autentificare</a>
+        <a class="button button-primary header-cta" href="#check" data-track="header_cta" data-i18n="startCheck">Începe verificarea</a>
+        <button class="menu-button" type="button" aria-label="Deschide meniul" aria-expanded="false" aria-controls="mobile-menu">
+          <svg><use href="#i-menu"></use></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <nav aria-label="Navigare mobilă">
+        <a href="#capabilities" data-i18n="navCapabilities">Posibilități</a>
+        <a href="#product" data-i18n="navProduct">Produs</a>
+        <a href="#monitoring" data-i18n="navMonitoring">Monitorizare</a>
+        <a href="#moldac" data-i18n="navMoldac">MOLDAC</a>
+        <a href="#how" data-i18n="navHow">Cum funcționează</a>
+        <a href="/ru/login" data-i18n="login">Autentificare</a>
+        <a class="button button-primary" href="#check" data-i18n="startCheck">Începe verificarea</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-grid-pattern" aria-hidden="true"></div>
+      <div class="container hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-light" data-i18n="heroEyebrow">Verificarea partenerilor de afaceri în Moldova</p>
+          <h1 data-i18n-html="heroTitle">Verificați contrapartida <span>înainte de decizia de afaceri</span></h1>
+          <p class="hero-lead" data-i18n="heroLead">Căutați o companie sau o persoană asociată, consultați datele de înregistrare, fondatorii, conexiunile și informațiile disponibile care necesită atenție.</p>
+
+          <form class="search-panel" id="check" novalidate>
+            <label for="company-search" data-i18n="searchLabel">Denumire, IDNO sau nume și prenume</label>
+            <div class="search-controls">
+              <div class="search-input-wrap">
+                <svg aria-hidden="true"><use href="#i-search"></use></svg>
+                <input id="company-search" name="query" type="search" autocomplete="off" minlength="2" required placeholder="Introduceți denumirea, IDNO sau numele">
+              </div>
+              <button class="button button-primary button-search" type="submit">
+                <span data-i18n="find">Găsește</span>
+                <svg aria-hidden="true"><use href="#i-arrow"></use></svg>
+              </button>
+            </div>
+            <p class="search-note" data-i18n="searchNote">Cererea este păstrată la trecerea prin autentificare și deschisă ulterior în căutarea Credibil.</p>
+            <div class="search-status" id="search-status" aria-live="polite"></div>
+          </form>
+
+          <div class="hero-proof" aria-label="Funcții confirmate">
+            <span><svg><use href="#i-check"></use></svg><b data-i18n="proofOne">Căutare după denumire, IDNO și nume</b></span>
+            <span><svg><use href="#i-check"></use></svg><b data-i18n="proofTwo">Raport PDF și Excel</b></span>
+            <span><svg><use href="#i-check"></use></svg><b data-i18n="proofThree">Monitorizarea schimbărilor</b></span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Interfața reală Credibil">
+          <div class="browser-frame hero-browser">
+            <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span><b>app.credibil</b></div>
+            <picture>
+              <source srcset="assets/product-company-900.webp 900w, assets/product-company-1350.webp 1350w" type="image/webp">
+              <img src="assets/product-company-1350.webp" width="1350" height="483" alt="Cardul unei companii în Credibil cu IDNO, statut, fondatori, administrator și acțiuni de raportare" fetchpriority="high" decoding="async">
+            </picture>
+          </div>
+          <div class="floating-card floating-monitor">
+            <div class="floating-icon"><svg><use href="#i-bell"></use></svg></div>
+            <div>
+              <small data-i18n="monitorCardLabel">Monitorizare</small>
+              <strong data-i18n="monitorCardTitle">Urmăriți schimbările companiei</strong>
+            </div>
+          </div>
+          <div class="floating-card floating-report">
+            <div class="floating-icon"><svg><use href="#i-download"></use></svg></div>
+            <div>
+              <small data-i18n="reportCardLabel">Rezultat</small>
+              <strong data-i18n="reportCardTitle">Export PDF și Excel</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="local-section section" aria-labelledby="local-title">
+      <div class="container local-layout">
+        <div>
+          <p class="eyebrow" data-i18n="localEyebrow">Specializare locală</p>
+          <h2 id="local-title" data-i18n="localTitle">Date pentru verificarea companiilor din Republica Moldova</h2>
+          <p class="section-lead" data-i18n="localLead">Credibil reunește într-un singur scenariu informațiile disponibile despre companie, persoanele asociate, rolurile și relațiile corporative. Serviciul nu este un portal de stat și nu înlocuiește consultanța juridică.</p>
+          <div class="inline-actions">
+            <a class="text-link" href="#product" data-i18n="seeProduct">Vedeți produsul <svg><use href="#i-arrow"></use></svg></a>
+          </div>
+        </div>
+        <div class="moldova-graphic" aria-hidden="true">
+          <svg viewBox="0 0 420 480" role="presentation">
+            <defs>
+              <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse">
+                <circle cx="4" cy="4" r="3.2" fill="#2a9c6f"></circle>
+              </pattern>
+              <filter id="soft"><feGaussianBlur stdDeviation="18"></feGaussianBlur></filter>
+            </defs>
+            <ellipse cx="217" cy="241" rx="150" ry="190" fill="#dbece5" opacity=".7" filter="url(#soft)"></ellipse>
+            <path d="M238 22c-22 30-31 58-21 85 8 20-6 36-26 58-18 20-27 42-16 61 13 22 2 39-15 59-19 23-21 52-4 73 15 18 12 40-4 67-9 15-4 27 13 34 34-2 59-16 74-43 12-20 28-34 49-45 20-11 28-32 18-52-13-25-8-47 17-70 16-15 20-34 8-52-18-27-19-47-4-70 9-14 4-28-14-40-33-22-56-44-75-65z" fill="url(#dots)"></path>
+            <circle cx="229" cy="235" r="48" fill="#000f2e"></circle>
+            <path d="m205 236 17 17 34-42" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="capabilities section section-dark" id="capabilities" aria-labelledby="capabilities-title">
+      <div class="container">
+        <div class="section-heading section-heading-dark">
+          <p class="eyebrow eyebrow-light" data-i18n="capEyebrow">Patru acțiuni esențiale</p>
+          <h2 id="capabilities-title" data-i18n="capTitle">De la căutare la monitorizare, într-un singur flux</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon"><svg><use href="#i-search"></use></svg></div>
+            <h3 data-i18n="featureSearchTitle">Căutare unificată</h3>
+            <p data-i18n="featureSearchText">Găsiți companii și persoane după denumire, IDNO sau nume, cu separarea rezultatelor pe tipuri.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon"><svg><use href="#i-network"></use></svg></div>
+            <h3 data-i18n="featureDataTitle">Date și conexiuni</h3>
+            <p data-i18n="featureDataText">Consultați fondatorii, administratorii, cotele de participare și companiile asociate prin persoane și organizații.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon"><svg><use href="#i-file"></use></svg></div>
+            <h3 data-i18n="featureReportTitle">Raport structurat</h3>
+            <p data-i18n="featureReportText">Păstrați rezultatul verificării prin exportul raportului disponibil în format PDF sau Excel.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon"><svg><use href="#i-bell"></use></svg></div>
+            <h3 data-i18n="featureMonitorTitle">Monitorizarea companiei</h3>
+            <p data-i18n="featureMonitorText">Adăugați compania în lista urmărită și consultați notificările disponibile despre modificări.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="directions section" aria-labelledby="directions-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="directionsEyebrow">Direcțiile produsului</p>
+          <h2 id="directions-title" data-i18n="directionsTitle">Ce puteți verifica în Credibil</h2>
+        </div>
+        <div class="direction-grid">
+          <article>
+            <svg><use href="#i-building"></use></svg>
+            <h3 data-i18n="dirCompanies">Companii</h3>
+            <p data-i18n="dirCompaniesText">Date de înregistrare și clasificare, statut, adresă, CAEM și informații fiscale disponibile.</p>
+          </article>
+          <article>
+            <svg><use href="#i-users"></use></svg>
+            <h3 data-i18n="dirPeople">Persoane și conexiuni</h3>
+            <p data-i18n="dirPeopleText">Fondatori, administratori, roluri, cote de participare și organizații asociate.</p>
+          </article>
+          <article>
+            <svg><use href="#i-file"></use></svg>
+            <h3 data-i18n="dirReports">Rapoarte</h3>
+            <p data-i18n="dirReportsText">Secțiuni tematice și exportul rezultatului verificării în PDF și Excel.</p>
+          </article>
+          <article>
+            <svg><use href="#i-eye"></use></svg>
+            <h3 data-i18n="dirAttention">Factori de atenție</h3>
+            <p data-i18n="dirAttentionText">Verificarea existenței datelor despre datorii, litigii, executări, sancțiuni și alte secțiuni disponibile.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-showcase section" id="product" aria-labelledby="product-title">
+      <div class="container">
+        <div class="section-heading showcase-heading">
+          <div>
+            <p class="eyebrow" data-i18n="productEyebrow">Produs funcțional</p>
+            <h2 id="product-title" data-i18n="productTitle">Interfața reală, nu o promisiune abstractă</h2>
+          </div>
+          <p data-i18n="productLead">Cadrele de mai jos provin din produsul Credibil și demonstrează căutarea, cardul companiei și relațiile corporative.</p>
+        </div>
+
+        <div class="product-gallery" aria-label="Capturi din produs">
+          <figure class="product-frame product-frame-search">
+            <div class="browser-frame">
+              <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span><b>Credibil / Căutare</b></div>
+              <picture>
+                <source srcset="assets/product-search-720.webp 720w, assets/product-search-1080.webp 1080w" type="image/webp">
+                <img src="assets/product-search-1080.webp" width="1080" height="360" loading="lazy" decoding="async" alt="Căutare Credibil cu autocomplete separat pentru companii și persoane">
+              </picture>
+            </div>
+            <figcaption><b data-i18n="gallerySearchTitle">Căutare după denumire, IDNO sau nume</b><span data-i18n="gallerySearchText">Rezultatele sunt separate vizual între companii și persoane.</span></figcaption>
+          </figure>
+
+          <figure class="product-frame product-frame-company">
+            <div class="browser-frame">
+              <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span><b>Credibil / Companie</b></div>
+              <picture>
+                <source srcset="assets/product-company-900.webp 900w, assets/product-company-1350.webp 1350w" type="image/webp">
+                <img src="assets/product-company-1350.webp" width="1350" height="483" loading="lazy" decoding="async" alt="Cardul companiei cu statut, IDNO, fondatori, administrator și acțiuni PDF, Excel și monitorizare">
+              </picture>
+            </div>
+            <figcaption><b data-i18n="galleryCompanyTitle">Cardul companiei</b><span data-i18n="galleryCompanyText">Datele de bază, persoanele responsabile și acțiunile principale sunt disponibile într-un singur ecran.</span></figcaption>
+          </figure>
+
+          <figure class="product-frame product-frame-relations">
+            <div class="browser-frame">
+              <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span><b>Credibil / Relații</b></div>
+              <picture>
+                <source srcset="assets/product-relations-900.webp 900w, assets/product-relations-1350.webp 1350w" type="image/webp">
+                <img src="assets/product-relations-1350.webp" width="1350" height="761" loading="lazy" decoding="async" alt="Lista relațiilor corporative prin fondatori și administratori cu roluri, cote și statutul companiilor">
+              </picture>
+            </div>
+            <figcaption><b data-i18n="galleryRelationsTitle">Relații corporative</b><span data-i18n="galleryRelationsText">Comparați rolurile și cotele în prezentarea Listă sau treceți la Schema disponibilă în produs.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="company-connections section" aria-labelledby="connections-title">
+      <div class="container connections-layout">
+        <div class="connection-copy">
+          <p class="eyebrow" data-i18n="connectionsEyebrow">Cardul companiei și relațiile</p>
+          <h2 id="connections-title" data-i18n="connectionsTitle">Înțelegeți cine conduce, deține și conectează compania</h2>
+          <p class="section-lead" data-i18n="connectionsLead">Credibil arată IDNO, statutul, fondatorii, administratorul, cotele de participare și organizațiile asociate. Relațiile pot fi analizate în modurile Listă și Schemă.</p>
+          <ul class="check-list">
+            <li><svg><use href="#i-check"></use></svg><span data-i18n="connectionItemOne">Fondatori și cote de participare</span></li>
+            <li><svg><use href="#i-check"></use></svg><span data-i18n="connectionItemTwo">Administratori și roluri în alte companii</span></li>
+            <li><svg><use href="#i-check"></use></svg><span data-i18n="connectionItemThree">Companii active și lichidate în același context</span></li>
+          </ul>
+          <a class="button button-dark" href="#check" data-track="connections_cta" data-i18n="checkCompany">Verificați compania</a>
+        </div>
+        <div class="connections-visual">
+          <div class="relation-toggle" aria-label="Exemplu de comutator Listă și Schemă">
+            <span class="is-selected"><svg><use href="#i-list"></use></svg><span data-i18n="listView">Listă</span></span>
+            <span><svg><use href="#i-network"></use></svg><span data-i18n="schemeView">Schemă</span></span>
+          </div>
+          <div class="browser-frame crop-frame">
+            <picture>
+              <source srcset="assets/product-relations-900.webp 900w, assets/product-relations-1350.webp 1350w" type="image/webp">
+              <img src="assets/product-relations-1350.webp" width="1350" height="761" loading="lazy" decoding="async" alt="Fragment din lista de relații Credibil">
+            </picture>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="risk-reports section section-warm" aria-labelledby="risk-title">
+      <div class="container">
+        <div class="section-heading risk-heading">
+          <div>
+            <p class="eyebrow" data-i18n="riskEyebrow">Date disponibile și rapoarte</p>
+            <h2 id="risk-title" data-i18n="riskTitle">Verificați existența informațiilor care pot necesita atenție</h2>
+          </div>
+          <p data-i18n="riskLead">Prezența datelor diferă de la o companie la alta. Interfața trebuie să distingă între lipsa datelor, lipsa rezultatelor și o secțiune care încă nu a fost completată.</p>
+        </div>
+        <div class="risk-grid">
+          <article><svg><use href="#i-file"></use></svg><b data-i18n="riskFinance">Rapoarte financiare</b><span data-i18n="riskSection">Secțiune separată</span></article>
+          <article><svg><use href="#i-court"></use></svg><b data-i18n="riskCourt">Dosare judiciare</b><span data-i18n="riskAvailability">Verificarea datelor disponibile</span></article>
+          <article><svg><use href="#i-list"></use></svg><b data-i18n="riskExecutions">Proceduri de executare</b><span data-i18n="riskActiveArchive">Active și arhivate</span></article>
+          <article><svg><use href="#i-building"></use></svg><b data-i18n="riskProcurement">Achiziții publice</b><span data-i18n="riskAvailability">Verificarea datelor disponibile</span></article>
+          <article><svg><use href="#i-award"></use></svg><b data-i18n="riskAccreditations">Acreditări</b><span data-i18n="riskCompanySection">Secțiune în cardul companiei</span></article>
+          <article><svg><use href="#i-eye"></use></svg><b data-i18n="riskSanctions">Sancțiuni</b><span data-i18n="riskMatchCheck">Verificarea coincidențelor disponibile</span></article>
+        </div>
+        <div class="report-strip">
+          <div>
+            <span class="report-kicker" data-i18n="reportKicker">Acțiuni confirmate în cardul companiei</span>
+            <h3 data-i18n="reportTitle">Exportați rezultatul în PDF sau Excel</h3>
+          </div>
+          <div class="report-actions" aria-label="Formate raport">
+            <span><svg><use href="#i-file"></use></svg>PDF</span>
+            <span><svg><use href="#i-file"></use></svg>Excel</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="monitoring-section section" id="monitoring" aria-labelledby="monitoring-title">
+      <div class="container monitoring-layout">
+        <div class="monitoring-product">
+          <div class="browser-frame">
+            <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span><b>Credibil / Monitorizare</b></div>
+            <picture>
+              <source srcset="assets/product-monitoring-800.webp 800w, assets/product-monitoring-1200.webp 1200w" type="image/webp">
+              <img src="assets/product-monitoring-1200.webp" width="1200" height="372" loading="lazy" decoding="async" alt="Lista companiilor monitorizate și zona de notificări din Credibil">
+            </picture>
+          </div>
+          <div class="example-event">
+            <span class="example-badge" data-i18n="example">Exemplu</span>
+            <div class="event-icon"><svg><use href="#i-bell"></use></svg></div>
+            <div>
+              <strong data-i18n="eventTitle">Administratorul companiei s-a modificat</strong>
+              <p data-i18n="eventText">Notificarea demonstrativă arată tipul schimbării și trimite utilizatorul la compania monitorizată. Nu reprezintă un eveniment real.</p>
+            </div>
+          </div>
+        </div>
+        <div class="monitoring-copy">
+          <p class="eyebrow" data-i18n="monitoringEyebrow">Monitorizarea schimbărilor</p>
+          <h2 id="monitoring-title" data-i18n="monitoringTitle">Nu repetați manual aceeași verificare</h2>
+          <p class="section-lead" data-i18n="monitoringLead">Adăugați compania în monitorizare, reveniți la lista urmărită și consultați notificările disponibile atunci când în sistem apar modificări.</p>
+          <ol class="numbered-list">
+            <li><span>01</span><div><b data-i18n="monitorStepOneTitle">Adăugați compania</b><p data-i18n="monitorStepOneText">Acțiunea este disponibilă direct în cardul companiei.</p></div></li>
+            <li><span>02</span><div><b data-i18n="monitorStepTwoTitle">Consultați lista urmărită</b><p data-i18n="monitorStepTwoText">Companiile monitorizate sunt grupate într-un singur compartiment.</p></div></li>
+            <li><span>03</span><div><b data-i18n="monitorStepThreeTitle">Gestionați monitorizarea</b><p data-i18n="monitorStepThreeText">Puteți deschide compania sau o puteți elimina din listă.</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="moldac-section section section-dark" id="moldac" aria-labelledby="moldac-title">
+      <div class="container moldac-layout">
+        <div>
+          <p class="eyebrow eyebrow-light" data-i18n="moldacEyebrow">Acreditări MOLDAC</p>
+          <h2 id="moldac-title" data-i18n="moldacTitle">Compartiment separat pentru căutarea acreditărilor</h2>
+          <p class="section-lead" data-i18n="moldacLead">Produsul include filtrarea acreditărilor MOLDAC și o secțiune asociată în cardul companiei. Disponibilitatea și plenitudinea datelor trebuie confirmate înainte de publicare.</p>
+          <a class="button button-outline-light" href="#check" data-track="moldac_cta" data-i18n="checkAccreditation">Verificați acreditarea</a>
+        </div>
+        <div class="browser-frame moldac-frame">
+          <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span><b>Credibil / MOLDAC</b></div>
+          <picture>
+            <source srcset="assets/product-moldac-740.webp 740w, assets/product-moldac-1100.webp 1100w" type="image/webp">
+            <img src="assets/product-moldac-1100.webp" width="1100" height="343" loading="lazy" decoding="async" alt="Compartimentul acreditărilor MOLDAC cu filtru după cuvânt-cheie și stare fără date">
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-section section" id="how" aria-labelledby="how-title">
+      <div class="container">
+        <div class="section-heading centered">
+          <p class="eyebrow" data-i18n="howEyebrow">Un scenariu clar</p>
+          <h2 id="how-title" data-i18n="howTitle">Cum funcționează verificarea</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="step-number">01</span>
+            <div class="step-icon"><svg><use href="#i-search"></use></svg></div>
+            <h3 data-i18n="howOneTitle">Găsiți</h3>
+            <p data-i18n="howOneText">Introduceți denumirea companiei, IDNO sau numele persoanei asociate.</p>
+          </li>
+          <li>
+            <span class="step-number">02</span>
+            <div class="step-icon"><svg><use href="#i-eye"></use></svg></div>
+            <h3 data-i18n="howTwoTitle">Verificați</h3>
+            <p data-i18n="howTwoText">Consultați datele de bază, rolurile, relațiile și secțiunile disponibile.</p>
+          </li>
+          <li>
+            <span class="step-number">03</span>
+            <div class="step-icon"><svg><use href="#i-download"></use></svg></div>
+            <h3 data-i18n="howThreeTitle">Păstrați rezultatul</h3>
+            <p data-i18n="howThreeText">Exportați raportul sau adăugați compania în monitorizare.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-title">
+      <div class="container final-cta-inner">
+        <div>
+          <p class="eyebrow eyebrow-light" data-i18n="finalEyebrow">Începeți cu un nume sau IDNO</p>
+          <h2 id="final-title" data-i18n="finalTitle">Verificați contrapartida înainte de următoarea decizie</h2>
+          <p data-i18n="finalText">Cererea introdusă va fi păstrată și deschisă în căutarea Credibil după autentificare.</p>
+        </div>
+        <a class="button button-primary button-large" href="#check" data-track="final_cta" data-i18n="startCheck">Începe verificarea</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div class="footer-brand">
+        <img src="assets/credibil-logo-light.svg" width="187" height="54" alt="Credibil">
+        <p data-i18n="footerText">Instrument pentru consultarea datelor disponibile despre companii și persoane asociate din Republica Moldova.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <b data-i18n="footerProduct">Produs</b>
+          <a href="#capabilities" data-i18n="navCapabilities">Posibilități</a>
+          <a href="#monitoring" data-i18n="navMonitoring">Monitorizare</a>
+          <a href="#moldac" data-i18n="navMoldac">MOLDAC</a>
+        </div>
+        <div>
+          <b data-i18n="footerAccount">Cont</b>
+          <a href="/ru/login" data-i18n="login">Autentificare</a>
+          <a href="#check" data-i18n="startCheck">Începe verificarea</a>
+        </div>
+        <div>
+          <b data-i18n="footerLegal">Informații juridice</b>
+          <a href="/privacy" data-i18n="privacy">Politica de confidențialitate</a>
+          <a href="/terms" data-i18n="terms">Condiții de utilizare</a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> Credibil</span>
+      <span data-i18n="footerLegalNote">Denumirea juridică și contactele proprietarului produsului se adaugă după confirmare.</span>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
