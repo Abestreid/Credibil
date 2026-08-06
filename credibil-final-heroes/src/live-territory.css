@@ -87,10 +87,11 @@
 
 .live-territory-host #sweep-band {
   opacity: 0;
+  will-change: transform, opacity;
 }
 
 .live-territory-mounted.map-ready #sweep-band {
-  animation: liveTerritorySweepBand 8.4s 3.1s linear infinite;
+  animation: liveTerritoryVerticalScan 8.2s linear infinite;
 }
 
 .live-territory-label {
@@ -131,16 +132,16 @@
   to { opacity: 1; }
 }
 
-@keyframes liveTerritorySweepBand {
+@keyframes liveTerritoryVerticalScan {
   0% {
-    transform: translate(-520px, -80px) rotate(-13deg);
+    transform: translateY(0);
     opacity: 0;
   }
-  12% { opacity: .75; }
-  55% { opacity: .4; }
-  78%,
+  8% { opacity: .78; }
+  48% { opacity: .44; }
+  86%,
   100% {
-    transform: translate(780px, 160px) rotate(-13deg);
+    transform: translateY(980px);
     opacity: 0;
   }
 }
