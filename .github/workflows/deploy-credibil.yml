@@ -67,15 +67,34 @@ jobs:
           EOF
           find dist/client -type f -name '*.html' -print0 | xargs -0 sed -i 's#</head>#<meta name="robots" content="noindex,nofollow,noarchive"></head>#'
 
-      - name: Select remote directory
+      - name: Select and validate remote directory
         id: target
         shell: bash
         run: |
-          if [ "${GITHUB_REF_NAME}" = "prod" ]; then
-            echo "dir=/test.abeslab.by/credibil/" >> "$GITHUB_OUTPUT"
-          else
-            echo "dir=/test.abeslab.by/credibil/dev/" >> "$GITHUB_OUTPUT"
-          fi
+          case "${GITHUB_REF_NAME}" in
+            prod)
+              target_dir="/test.abeslab.by/credibil/"
+              ;;
+            dev)
+              target_dir="/test.abeslab.by/credibil/dev/"
+              ;;
+            *)
+              echo "Deployment is forbidden for branch: ${GITHUB_REF_NAME}" >&2
+              exit 1
+              ;;
+          esac
+
+          case "${target_dir}" in
+            "/test.abeslab.by/credibil/"|"/test.abeslab.by/credibil/dev/")
+              ;;
+            *)
+              echo "Deployment path is outside the Credibil allowlist: ${target_dir}" >&2
+              exit 1
+              ;;
+          esac
+
+          echo "dir=${target_dir}" >> "$GITHUB_OUTPUT"
+          echo "Deployment target validated: ${target_dir}"
 
       - name: Deploy over FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
