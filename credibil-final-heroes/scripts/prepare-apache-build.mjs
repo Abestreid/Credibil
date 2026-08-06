@@ -27,22 +27,39 @@ appendFileSync(
   companyStyles,
   `
 
-/* Dev refinement: compact, uniform company metrics typography. */
+/* Dev refinement: compact company metrics. */
+#main-content > .metrics-wrap .metric {
+  min-height: 108px;
+  padding: 15px 18px;
+}
+
 #main-content > .metrics-wrap .metric-label {
+  min-height: 28px;
   font-size: 10px;
+  line-height: 1.35;
 }
 
 #main-content > .metrics-wrap .metric-value {
+  margin-top: 8px;
   font-size: 20px;
   line-height: 1.2;
   letter-spacing: -0.025em;
 }
 
 #main-content > .metrics-wrap .metric-note {
+  margin-top: 5px;
   font-size: 10px;
+  line-height: 1.35;
+}
+
+@media (max-width: 640px) {
+  #main-content > .metrics-wrap .metric {
+    min-height: 100px;
+    padding: 13px 15px;
+  }
 }
 `,
 );
 
 console.log("Prepared Apache build: dist/client/ru/index.html");
-console.log("Applied compact typography to company metrics.");
+console.log("Applied compact sizing and typography to company metrics.");
