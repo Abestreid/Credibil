@@ -1,5 +1,12 @@
 #!/usr/bin/env node
-import { appendFileSync, copyFileSync, existsSync, mkdirSync } from "node:fs";
+import {
+  appendFileSync,
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -23,6 +30,23 @@ if (!existsSync(companyStyles)) {
   throw new Error("Missing company page stylesheet: " + companyStyles);
 }
 
+const baseCompanyCss = readFileSync(companyStyles, "utf8");
+const baseMetricValueRule =
+  ".metric-value { display: block; margin-top: 13px;";
+
+if (!baseCompanyCss.includes(baseMetricValueRule)) {
+  throw new Error("Missing base .metric-value margin declaration");
+}
+
+writeFileSync(
+  companyStyles,
+  baseCompanyCss.replace(
+    baseMetricValueRule,
+    ".metric-value { display: block; /* margin-top: 13px; */",
+  ),
+  "utf8",
+);
+
 appendFileSync(
   companyStyles,
   `
@@ -40,7 +64,7 @@ appendFileSync(
 }
 
 #main-content > .metrics-wrap .metric-value {
-  margin-top: 8px;
+  /* margin-top: 8px; */
   font-size: 20px;
   line-height: 1.2;
   letter-spacing: -0.025em;
@@ -62,4 +86,4 @@ appendFileSync(
 );
 
 console.log("Prepared Apache build: dist/client/ru/index.html");
-console.log("Applied compact sizing and typography to company metrics.");
+console.log("Applied compact sizing and removed metric value top margins.");
