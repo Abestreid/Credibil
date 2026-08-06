@@ -4,6 +4,7 @@
   opacity: 0 !important;
 }
 
+.hero .map-field.live-territory-pending,
 .hero .map-field.live-territory-mounted {
   right: clamp(8px, 3.5vw, 64px);
   top: 1%;
@@ -145,6 +146,7 @@
 }
 
 @media (max-width: 900px) {
+  .hero .map-field.live-territory-pending,
   .hero .map-field.live-territory-mounted {
     right: -17vw;
     top: 0;
@@ -159,6 +161,7 @@
 }
 
 @media (max-width: 620px) {
+  .hero .map-field.live-territory-pending,
   .hero .map-field.live-territory-mounted {
     right: -43vw;
     top: -2%;
