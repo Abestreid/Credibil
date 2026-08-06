@@ -33,6 +33,27 @@ function waitForMonitoringRuntime(maxFrames = 180) {
   });
 }
 
+function centerWithin(element, ancestor) {
+  let x = element.offsetWidth / 2;
+  let y = element.offsetHeight / 2;
+  let node = element;
+
+  while (node && node !== ancestor) {
+    x += node.offsetLeft;
+    y += node.offsetTop;
+    node = node.offsetParent;
+  }
+
+  if (node === ancestor) return { x, y };
+
+  const ancestorRect = ancestor.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+  return {
+    x: elementRect.left - ancestorRect.left + elementRect.width / 2,
+    y: elementRect.top - ancestorRect.top + elementRect.height / 2,
+  };
+}
+
 function killPreviousLineAnimation(ScrollTrigger, feed, line) {
   ScrollTrigger.getAll().forEach((trigger) => {
     const targets = trigger.animation?.targets?.() || [];
@@ -63,18 +84,14 @@ export async function initializeMonitoringTimeline() {
   const lastDot = dots[dots.length - 1];
 
   const syncGeometry = () => {
-    const feedRect = feed.getBoundingClientRect();
-    const firstRect = firstDot.getBoundingClientRect();
-    const lastRect = lastDot.getBoundingClientRect();
+    const firstCenter = centerWithin(firstDot, feed);
+    const lastCenter = centerWithin(lastDot, feed);
+    const halfLineWidth = line.offsetWidth / 2;
 
-    const firstCenterX = firstRect.left - feedRect.left + firstRect.width / 2;
-    const firstCenterY = firstRect.top - feedRect.top + firstRect.height / 2;
-    const lastCenterY = lastRect.top - feedRect.top + lastRect.height / 2;
-
-    line.style.left = `${firstCenterX}px`;
-    line.style.top = `${firstCenterY}px`;
+    line.style.left = `${firstCenter.x - halfLineWidth}px`;
+    line.style.top = `${firstCenter.y}px`;
     line.style.bottom = "auto";
-    line.style.height = `${Math.max(0, lastCenterY - firstCenterY)}px`;
+    line.style.height = `${Math.max(0, lastCenter.y - firstCenter.y)}px`;
   };
 
   killPreviousLineAnimation(ScrollTrigger, feed, line);
@@ -113,14 +130,19 @@ export async function initializeMonitoringTimeline() {
     },
   );
 
-  const resizeObserver = new ResizeObserver(() => {
-    syncGeometry();
-  });
-  resizeObserver.observe(feed);
-  dots.forEach((dot) => resizeObserver.observe(dot));
+  const onResize = () => syncGeometry();
+  window.addEventListener("resize", onResize, { passive: true });
+
+  const resizeObserver = typeof ResizeObserver === "function"
+    ? new ResizeObserver(syncGeometry)
+    : null;
+
+  resizeObserver?.observe(feed);
+  dots.forEach((dot) => resizeObserver?.observe(dot));
 
   window.__CREDIBIL_MONITORING_TIMELINE_CLEANUP__ = () => {
-    resizeObserver.disconnect();
+    resizeObserver?.disconnect();
+    window.removeEventListener("resize", onResize);
     ScrollTrigger.getAll().forEach((trigger) => {
       const targets = trigger.animation?.targets?.() || [];
       if (targets.includes(line)) {
