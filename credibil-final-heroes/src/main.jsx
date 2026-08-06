@@ -2,6 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.jsx";
 import { initializeLiveTerritory } from "./live-territory.js";
+import { initializeMonitoringTimeline } from "./monitoring-timeline.js";
 import { configureRuntimeAssets, initializeStorytelling } from "./storytelling.js";
 import "./styles.css";
 import "./storytelling.css";
@@ -15,8 +16,12 @@ createRoot(document.getElementById("root")).render(
   </React.StrictMode>,
 );
 
-window.requestAnimationFrame(() => {
+window.requestAnimationFrame(async () => {
   document.querySelector(".landing .hero .map-field")?.classList.add("live-territory-pending");
-  initializeStorytelling();
+
+  const storytelling = initializeStorytelling();
   initializeLiveTerritory();
+
+  await storytelling;
+  initializeMonitoringTimeline();
 });
