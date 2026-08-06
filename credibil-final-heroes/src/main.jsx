@@ -16,6 +16,7 @@ createRoot(document.getElementById("root")).render(
 );
 
 window.requestAnimationFrame(() => {
+  document.querySelector(".landing .hero .map-field")?.classList.add("live-territory-pending");
   initializeStorytelling();
   initializeLiveTerritory();
 });
