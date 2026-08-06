@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import {
   appendFileSync,
-  copyFileSync,
   existsSync,
   mkdirSync,
   readFileSync,
@@ -13,6 +12,8 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const client = path.join(root, "dist", "client");
 const index = path.join(client, "index.html");
+const ruDirectory = path.join(client, "ru");
+const ruIndex = path.join(ruDirectory, "index.html");
 const companyStyles = path.join(
   client,
   "ru",
@@ -23,8 +24,13 @@ const companyStyles = path.join(
 
 if (!existsSync(index)) throw new Error("Missing Vite build output: " + index);
 
-mkdirSync(path.join(client, "ru"), { recursive: true });
-copyFileSync(index, path.join(client, "ru", "index.html"));
+const rootIndexHtml = readFileSync(index, "utf8");
+const ruIndexHtml = rootIndexHtml
+  .replaceAll('href="./assets/', 'href="../assets/')
+  .replaceAll('src="./assets/', 'src="../assets/');
+
+mkdirSync(ruDirectory, { recursive: true });
+writeFileSync(ruIndex, ruIndexHtml, "utf8");
 
 if (!existsSync(companyStyles)) {
   throw new Error("Missing company page stylesheet: " + companyStyles);
@@ -51,7 +57,7 @@ appendFileSync(
   companyStyles,
   `
 
-/* Dev refinement: compact company metrics. */
+/* Compact company metrics. */
 #main-content > .metrics-wrap .metric {
   min-height: 108px;
   padding: 15px 18px;
@@ -86,4 +92,5 @@ appendFileSync(
 );
 
 console.log("Prepared Apache build: dist/client/ru/index.html");
+console.log("Adjusted nested RU asset paths.");
 console.log("Applied compact sizing and removed metric value top margins.");
