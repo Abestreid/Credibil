@@ -44,7 +44,7 @@ jobs:
       - name: Build production branch
         if: github.ref_name == 'prod'
         env:
-          VITE_BASE_PATH: /credibil/
+          VITE_BASE_PATH: /credibil/credibil-final-heroes/
           VITE_DEPLOY_ENV: production
         run: npm run build
 
@@ -73,7 +73,7 @@ jobs:
         run: |
           case "${GITHUB_REF_NAME}" in
             prod)
-              target_dir="/test.abeslab.by/credibil/"
+              target_dir="/test.abeslab.by/credibil/credibil-final-heroes/"
               ;;
             dev)
               target_dir="/test.abeslab.by/credibil/dev/"
@@ -85,7 +85,7 @@ jobs:
           esac
 
           case "${target_dir}" in
-            "/test.abeslab.by/credibil/"|"/test.abeslab.by/credibil/dev/")
+            "/test.abeslab.by/credibil/credibil-final-heroes/"|"/test.abeslab.by/credibil/dev/")
               ;;
             *)
               echo "Deployment path is outside the Credibil allowlist: ${target_dir}" >&2
@@ -97,7 +97,7 @@ jobs:
           echo "Deployment target validated: ${target_dir}"
 
       - name: Deploy over FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}

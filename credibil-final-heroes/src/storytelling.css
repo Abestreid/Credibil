@@ -1,0 +1,143 @@
+/* Scroll-storytelling layer. Loaded after the base stylesheet. */
+.landing {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+html.storytelling-ready [data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+html.storytelling-ready .hero-content,
+html.storytelling-ready .hero .map-field,
+html.storytelling-ready .story-visual,
+html.storytelling-ready .product-tile,
+html.storytelling-ready .check-preview,
+html.storytelling-ready .report-sheet {
+  will-change: transform, opacity;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: -18%;
+  height: 24%;
+  pointer-events: none;
+  opacity: .35;
+  background: linear-gradient(to bottom, transparent, rgba(97,210,162,.13), transparent);
+  animation: heroScan 8s linear infinite;
+}
+
+.story-visual {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.story-visual figure,
+.story-mobile-stage {
+  transform-style: preserve-3d;
+}
+
+.story-ui,
+.story-ui * {
+  backface-visibility: hidden;
+}
+
+.story-progress b,
+.event-line,
+.report-bars i,
+.report-copy-lines span,
+.network-rule {
+  transform-origin: top center;
+}
+
+.product-tile {
+  overflow: hidden;
+}
+
+.product-tile::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  background: var(--mint);
+  transition: right .35s ease;
+}
+
+.product-tile:hover::after {
+  right: 0;
+}
+
+.product-tile > svg,
+.event-dot {
+  transform-origin: center;
+}
+
+.checks-index button {
+  transition: color .28s ease, padding-left .28s ease, background .28s ease;
+}
+
+.checks-index button[aria-selected="true"] {
+  padding-left: 12px;
+  background: linear-gradient(90deg, rgba(42,156,111,.09), transparent 78%);
+}
+
+.preview-content {
+  will-change: transform, opacity;
+}
+
+.event-line {
+  transform-origin: top center;
+}
+
+.report-bars i {
+  transform-origin: bottom center;
+}
+
+.report-copy-lines span {
+  transform-origin: left center;
+}
+
+.final-section {
+  background-size: 135% 135%;
+}
+
+.motion-fallback [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes heroScan {
+  from { transform: translateY(-120%); }
+  to { transform: translateY(620%); }
+}
+
+@media (max-width: 900px) {
+  .story-mobile article {
+    opacity: 1;
+    transform: none;
+  }
+
+  .story-mobile-stage {
+    box-shadow: 0 24px 60px rgba(4,19,42,.11);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before {
+    animation: none;
+    display: none;
+  }
+
+  .product-tile > svg,
+  .event-dot {
+    transform: none !important;
+  }
+}

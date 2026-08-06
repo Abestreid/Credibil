@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 import worker from "../worker/index.js";
 
@@ -67,3 +67,17 @@ test("emits the files required by Sites packaging", async () => {
   await access(new URL("../dist/.openai/hosting.json", import.meta.url));
 });
 
+test("includes storytelling runtime and valid nested RU asset paths", async () => {
+  const rootIndex = await readFile(new URL("../dist/client/index.html", import.meta.url), "utf8");
+  const ruIndex = await readFile(new URL("../dist/client/ru/index.html", import.meta.url), "utf8");
+
+  assert.match(rootIndex, /gsap@3\.15\.0\/dist\/gsap\.min\.js/);
+  assert.match(rootIndex, /gsap@3\.15\.0\/dist\/ScrollTrigger\.min\.js/);
+  assert.doesNotMatch(ruIndex, /(?:src|href)="\.\/assets\//);
+  assert.match(ruIndex, /(?:src|href)="\.\.\/assets\//);
+
+  const assetDirectory = new URL("../dist/client/assets/", import.meta.url);
+  const scriptNames = (await readdir(assetDirectory)).filter((name) => name.endsWith(".js"));
+  const scripts = await Promise.all(scriptNames.map((name) => readFile(new URL(name, assetDirectory), "utf8")));
+  assert.match(scripts.join("\n"), /CREDIBIL_STORYTELLING_INITIALIZED/);
+});
