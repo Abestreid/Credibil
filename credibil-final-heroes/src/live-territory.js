@@ -66,12 +66,15 @@ function prepareSvg(svg) {
   const sweepGradient = createSvgElement("linearGradient", {
     id: "sweepGradLive",
     x1: "0",
-    x2: "1",
+    x2: "0",
+    y1: "0",
+    y2: "1",
   });
   sweepGradient.append(
     createSvgElement("stop", { offset: "0", "stop-color": "#61d2a2", "stop-opacity": "0" }),
-    createSvgElement("stop", { offset: ".48", "stop-color": "#61d2a2", "stop-opacity": ".42" }),
-    createSvgElement("stop", { offset: ".58", "stop-color": "#d4f8e8", "stop-opacity": ".62" }),
+    createSvgElement("stop", { offset: ".42", "stop-color": "#61d2a2", "stop-opacity": ".34" }),
+    createSvgElement("stop", { offset: ".52", "stop-color": "#d4f8e8", "stop-opacity": ".68" }),
+    createSvgElement("stop", { offset: ".62", "stop-color": "#61d2a2", "stop-opacity": ".34" }),
     createSvgElement("stop", { offset: "1", "stop-color": "#61d2a2", "stop-opacity": "0" }),
   );
 
@@ -98,10 +101,10 @@ function prepareSvg(svg) {
   effectLayer.appendChild(createSvgElement("rect", {
     id: "sweep-band",
     class: "sweep",
-    x: "-120",
-    y: "-180",
-    width: "130",
-    height: "1160",
+    x: "-28",
+    y: "-140",
+    width: "668",
+    height: "140",
     fill: "url(#sweepGradLive)",
   }));
 
@@ -315,15 +318,14 @@ async function mountLiveTerritory(target) {
 
     const time = (now - startedAt) / 1000;
     const cycle = (Math.max(0, time - 2.7) % 8.2) / 8.2;
-    const wave = -120 + 980 * cycle;
+    const waveY = -120 + 980 * cycle;
     const searchBoost = target.classList.contains("is-active") ? 1.12 : 1;
 
     if (time > 2.7) target.classList.add("map-ready");
 
     particles.forEach((particle) => {
       const intro = introValue(particle, time);
-      const coordinate = particle.targetY + particle.targetX * 0.22;
-      const glow = Math.max(0, 1 - Math.abs(coordinate - wave) / 72);
+      const glow = Math.max(0, 1 - Math.abs(particle.targetY - waveY) / 72);
       let deltaX = 0;
       let deltaY = 0;
       let scale = (0.25 + 0.75 * intro) * (1 + glow * 0.18) * searchBoost;
@@ -350,10 +352,7 @@ async function mountLiveTerritory(target) {
     });
 
     regionPaths.forEach((region) => {
-      const glow = Math.max(
-        0,
-        1 - Math.abs(region.centerY + region.centerX * 0.22 - wave) / 105,
-      );
+      const glow = Math.max(0, 1 - Math.abs(region.centerY - waveY) / 105);
       const near = pointer.active
         ? Math.max(0, 1 - Math.hypot(region.centerX - pointer.x, region.centerY - pointer.y) / 115)
         : 0;
