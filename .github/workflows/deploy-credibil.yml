@@ -29,10 +29,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: npm
@@ -40,9 +40,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Run tests
-        run: npm run test:sites
 
       - name: Build production branch
         if: github.ref_name == 'prod'
@@ -57,6 +54,9 @@ jobs:
           VITE_BASE_PATH: /credibil/dev/
           VITE_DEPLOY_ENV: development
         run: npm run build
+
+      - name: Run tests against build output
+        run: npm run test:sites
 
       - name: Add noindex protection to development build
         if: github.ref_name == 'dev'
