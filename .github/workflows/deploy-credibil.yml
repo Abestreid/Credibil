@@ -1,0 +1,94 @@
+name: Deploy Credibil
+
+on:
+  push:
+    branches:
+      - dev
+      - prod
+    paths:
+      - "credibil-final-heroes/**"
+      - ".github/workflows/deploy-credibil.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: credibil-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'prod' && 'production' || 'development' }}
+
+    defaults:
+      run:
+        working-directory: credibil-final-heroes
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: credibil-final-heroes/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:sites
+
+      - name: Build production branch
+        if: github.ref_name == 'prod'
+        env:
+          VITE_BASE_PATH: /credibil/
+          VITE_DEPLOY_ENV: production
+        run: npm run build
+
+      - name: Build development branch
+        if: github.ref_name == 'dev'
+        env:
+          VITE_BASE_PATH: /credibil/dev/
+          VITE_DEPLOY_ENV: development
+        run: npm run build
+
+      - name: Add noindex protection to development build
+        if: github.ref_name == 'dev'
+        run: |
+          cat > dist/client/robots.txt <<'EOF'
+          User-agent: *
+          Disallow: /
+          EOF
+          find dist/client -type f -name '*.html' -print0 | xargs -0 sed -i 's#</head>#<meta name="robots" content="noindex,nofollow,noarchive"></head>#'
+
+      - name: Select remote directory
+        id: target
+        shell: bash
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "prod" ]; then
+            echo "dir=${{ secrets.FTP_PROD_DIR }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "dir=${{ secrets.FTP_DEV_DIR }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy over FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ftp
+          local-dir: credibil-final-heroes/dist/client/
+          server-dir: ${{ steps.target.outputs.dir }}
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
