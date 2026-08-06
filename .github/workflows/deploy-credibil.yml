@@ -72,19 +72,19 @@ jobs:
         shell: bash
         run: |
           if [ "${GITHUB_REF_NAME}" = "prod" ]; then
-            echo "dir=${{ secrets.FTP_PROD_DIR }}" >> "$GITHUB_OUTPUT"
+            echo "dir=/test.abeslab.by/credibil/" >> "$GITHUB_OUTPUT"
           else
-            echo "dir=${{ secrets.FTP_DEV_DIR }}" >> "$GITHUB_OUTPUT"
+            echo "dir=/test.abeslab.by/credibil/dev/" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Deploy over FTP
+      - name: Deploy over FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT }}
-          protocol: ftp
+          port: 21
+          protocol: ftps
           local-dir: credibil-final-heroes/dist/client/
           server-dir: ${{ steps.target.outputs.dir }}
           dangerous-clean-slate: false
