@@ -1,0 +1,119 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile
+    ports:
+      - "9000:8000"
+    environment:
+      - CREDIBIL_DATABASE_URL=postgresql+asyncpg://credibil:${DB_PASSWORD:-credibil}@postgres:5432/credibil
+      - CREDIBIL_REDIS_URL=redis://:${REDIS_PASSWORD:-credibil}@redis:6379/0
+      - CREDIBIL_DEBUG=${DEBUG:-false}
+      - CREDIBIL_JWT_SECRET=${JWT_SECRET:-dev-jwt-secret}
+      - CREDIBIL_MEILISEARCH_URL=http://meilisearch:7700
+      - CREDIBIL_MEILISEARCH_API_KEY=${MEILISEARCH_MASTER_KEY:-dev-master-key}
+      # Trusted service keys exempt from rate limiting (e.g. SDN sync). Value
+      # kept in .env (SDN_SYNC_KEY), never committed.
+      - CREDIBIL_RATE_LIMIT_EXEMPT_KEYS=${SDN_SYNC_KEY:-}
+      # SDN Sanctions Intelligence API (credibil -> SDN sanctions checks).
+      - CREDIBIL_SDN_API_KEY=${CREDIBIL_SDN_API_KEY:-}
+      - CREDIBIL_SDN_API_URL=${CREDIBIL_SDN_API_URL:-http://host.docker.internal:8000/api/v1}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      meilisearch:
+        condition: service_healthy
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile
+    command: >
+      sh -c "Xvfb :99 -screen 0 1280x720x24 -nolisten tcp &
+             exec celery -A credibil.workers.celery_app worker -l info -c 4"
+    environment:
+      - CREDIBIL_DATABASE_URL=postgresql+asyncpg://credibil:${DB_PASSWORD:-credibil}@postgres:5432/credibil
+      - CREDIBIL_REDIS_URL=redis://:${REDIS_PASSWORD:-credibil}@redis:6379/0
+      - CREDIBIL_MEILISEARCH_URL=http://meilisearch:7700
+      - CREDIBIL_MEILISEARCH_API_KEY=${MEILISEARCH_MASTER_KEY:-dev-master-key}
+      - DISPLAY=:99
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  beat:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile
+    command: celery -A credibil.workers.celery_app beat -l info
+    environment:
+      - CREDIBIL_REDIS_URL=redis://:${REDIS_PASSWORD:-credibil}@redis:6379/0
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: credibil
+      POSTGRES_USER: credibil
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-credibil}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U credibil"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --requirepass ${REDIS_PASSWORD:-credibil}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-credibil}", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    environment:
+      - LOG_LEVEL=info
+      - CAPTCHA_SOLVER=none
+    restart: unless-stopped
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.12
+    ports:
+      - "7700:7700"
+    environment:
+      - MEILI_MASTER_KEY=${MEILISEARCH_MASTER_KEY:-dev-master-key}
+      - MEILI_ENV=development
+    volumes:
+      - meilisearch_data:/meili_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  meilisearch_data:
