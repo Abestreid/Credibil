@@ -1,0 +1,78 @@
+name: Sync Credibil service archive to dev
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "credibil-master.zip"
+      - ".github/workflows/sync-credibil-service-to-dev.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-credibil-service-to-dev
+  cancel-in-progress: true
+
+jobs:
+  unpack:
+    name: Unpack service sources into dev branch
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout dev branch
+        uses: actions/checkout@v5
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Fetch service archive from main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git show origin/main:credibil-master.zip > /tmp/credibil-master.zip
+          test -s /tmp/credibil-master.zip
+          unzip -tq /tmp/credibil-master.zip
+
+      - name: Unpack service into credibil-service
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/credibil-unpacked credibil-service
+          mkdir -p /tmp/credibil-unpacked credibil-service
+          unzip -q /tmp/credibil-master.zip -d /tmp/credibil-unpacked
+
+          shopt -s dotglob nullglob
+          entries=(/tmp/credibil-unpacked/*)
+
+          if [ "${#entries[@]}" -eq 1 ] && [ -d "${entries[0]}" ]; then
+            cp -a "${entries[0]}/." credibil-service/
+          else
+            cp -a /tmp/credibil-unpacked/. credibil-service/
+          fi
+
+          rm -rf credibil-service/.git
+
+          test -f credibil-service/backend/pyproject.toml
+          test -f credibil-service/frontend/package.json
+          test -f credibil-service/docker-compose.yml
+
+      - name: Commit unpacked service to dev
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A credibil-service
+
+          if git diff --cached --quiet; then
+            echo "Service sources are already synchronized."
+            exit 0
+          fi
+
+          git commit -m "chore(dev): unpack Credibil service archive"
+          git push origin HEAD:dev
