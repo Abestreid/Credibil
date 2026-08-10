@@ -1,0 +1,101 @@
+name: Promote company SEO V2
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - ".github/workflows/promote-company-v2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v5
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Remove sources section and prepare production page
+        shell: bash
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+
+          v2_path = Path('credibil-final-heroes/public/ru/companies/1004600034130-v2/index.html')
+          text = v2_path.read_text(encoding='utf-8')
+
+          # Remove the complete visible Sources section and its sidebar link.
+          text = re.sub(
+              r'\n\s*<section class="section" id="sources">.*?</section>\s*\n',
+              '\n',
+              text,
+              count=1,
+              flags=re.S,
+          )
+          text = text.replace('<a href="#sources">Источники</a>', '')
+
+          # Do not advertise competitor/catalog brands in the public timeline.
+          replacements = {
+              'Снимок состава и регистрационных сведений в InfoDebit.': 'Снимок состава и регистрационных сведений в открытом веб-источнике.',
+              'Снимок регистрационных и связанных сведений в InfoBiz.': 'Снимок регистрационных и связанных сведений в открытом веб-источнике.',
+              'Дата обновления записи, указанная InfoBiz.': 'Дата обновления публичной регистрационной записи.',
+              'Дата актуализации, указанная InfoDebit.': 'Дата актуализации публичной регистрационной записи.',
+          }
+          for old, new in replacements.items():
+              text = text.replace(old, new)
+
+          v2_path.write_text(text, encoding='utf-8')
+
+          prod = text
+          prod = re.sub(
+              r'\s*<div class="devbar" data-nosnippet>.*?</div></div></div>\s*',
+              '\n',
+              prod,
+              count=1,
+              flags=re.S,
+          )
+          prod = prod.replace(
+              'content="noindex,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"',
+              'content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"',
+          )
+          prod = prod.replace(
+              '../1004600034130/assets/credibil-logo.svg',
+              'assets/credibil-logo.svg',
+          )
+          prod = prod.replace(
+              'Credibil - проверка компаний и связанных лиц в Республике Молдова. DEV-вариант используется для сравнения SEO-архитектуры и не индексируется.',
+              'Credibil - проверка компаний и связанных лиц в Республике Молдова. Информация носит справочный характер и не заменяет юридическое, аудиторское или кредитное заключение.',
+          )
+
+          Path('/tmp/company-prod.html').write_text(prod, encoding='utf-8')
+          PY
+
+      - name: Commit cleaned V2 to dev
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add credibil-final-heroes/public/ru/companies/1004600034130-v2/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "fix(dev): remove public sources section from company SEO v2"
+            git push origin dev
+          fi
+
+      - name: Promote SEO V2 to prod company URL
+        shell: bash
+        run: |
+          git fetch origin prod
+          git checkout -B prod origin/prod
+          cp /tmp/company-prod.html credibil-final-heroes/public/ru/companies/1004600034130/index.html
+          git add credibil-final-heroes/public/ru/companies/1004600034130/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "feat(prod): promote information-first company SEO page"
+            git push origin prod
+          fi
