@@ -47,19 +47,6 @@ function neutralizeSearchMarkup(root = document) {
 
   root.querySelectorAll?.(searchMarkupSelector).forEach((node) => node.remove());
 
-  const headings = [];
-  if (root.nodeType === Node.ELEMENT_NODE && /^H[1-6]$/.test(root.tagName)) headings.push(root);
-  root.querySelectorAll?.("h1,h2,h3,h4,h5,h6").forEach((node) => headings.push(node));
-  headings.forEach((node) => {
-    if (!node.isConnected) return;
-    const replacement = document.createElement("div");
-    const level = node.tagName.slice(1);
-    [...node.attributes].forEach((attribute) => replacement.setAttribute(attribute.name, attribute.value));
-    replacement.setAttribute("data-heading-level", level);
-    while (node.firstChild) replacement.appendChild(node.firstChild);
-    node.replaceWith(replacement);
-  });
-
   const structuredNodes = [];
   if (root.nodeType === Node.ELEMENT_NODE) structuredNodes.push(root);
   root.querySelectorAll?.("*").forEach((node) => structuredNodes.push(node));
