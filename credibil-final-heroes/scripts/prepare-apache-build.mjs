@@ -28,7 +28,7 @@ if (!existsSync(index)) throw new Error("Missing Vite build output: " + index);
 
 function neutralizeHeadingSelectors(css) {
   return css.replace(
-    /(^|[,{>+~\s])h([1-6])(?=[.#:\[\s,{>+~]|$)/gm,
+    /(^|[,{>+~\s}()])h([1-6])(?=[.#:\[\s,{>+~)]|$)/gm,
     (_match, prefix, level) => `${prefix}[data-heading-level="${level}"]`,
   );
 }
