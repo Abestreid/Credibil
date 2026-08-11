@@ -33,6 +33,13 @@ function neutralizeHeadingSelectors(css) {
   );
 }
 
+function neutralizeCompiledHeadings(js) {
+  return js.replace(
+    /(["'])h([1-6])\1\s*,\s*\{/g,
+    (_match, quote, level) => `${quote}div${quote},{"data-heading-level":"${level}",`,
+  );
+}
+
 function stripSearchMarkup(html) {
   let output = html;
 
@@ -90,6 +97,8 @@ walk(client, (file) => {
     writeFileSync(file, stripSearchMarkup(readFileSync(file, "utf8")), "utf8");
   } else if (file.endsWith(".css")) {
     writeFileSync(file, neutralizeHeadingSelectors(readFileSync(file, "utf8")), "utf8");
+  } else if (file.endsWith(".js")) {
+    writeFileSync(file, neutralizeCompiledHeadings(readFileSync(file, "utf8")), "utf8");
   }
 });
 
@@ -155,4 +164,5 @@ appendFileSync(
 console.log("Prepared Apache build: dist/client/ru/index.html");
 console.log("Adjusted nested RU asset paths.");
 console.log("Removed search metadata, structured data, icons, and heading semantics from all built pages.");
+console.log("Neutralized compiled React heading elements while preserving their visual selectors.");
 console.log("Applied compact sizing and removed metric value top margins.");
