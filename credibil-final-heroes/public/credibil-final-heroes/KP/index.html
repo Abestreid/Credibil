@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#04132a" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --navy: #04132a;
+      --navy-2: #061e31;
+      --teal: #0a3439;
+      --green: #2a9c6f;
+      --green-dark: #1f805f;
+      --mint: #61d2a2;
+      --paper: #f4f1ec;
+      --canvas: #f8f8f5;
+      --white: #ffffff;
+      --ink: #06152b;
+      --ink-2: #1d2b3c;
+      --muted: #65727c;
+      --line: #dce3df;
+      --line-dark: rgba(255,255,255,.12);
+      --radius: 16px;
+      --shadow: 0 28px 80px rgba(4,19,42,.12);
+      --container: 1240px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: "Manrope", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(calc(100% - 48px), var(--container)); margin-inline: auto; }
+
+    .topbar {
+      position: sticky;
+      z-index: 50;
+      top: 0;
+      height: 78px;
+      border-bottom: 1px solid var(--line-dark);
+      background: rgba(4,19,42,.94);
+      backdrop-filter: blur(18px);
+    }
+    .topbar-inner { display: flex; align-items: center; height: 100%; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 13px; color: #fff; text-decoration: none; }
+    .brand-mark { width: 43px; height: 43px; }
+    .brand-word { font-size: 22px; font-weight: 500; letter-spacing: -.045em; }
+    .topbar-note { color: rgba(255,255,255,.5); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .topbar-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+    .header-link,
+    .header-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .header-link { color: rgba(255,255,255,.7); }
+    .header-button { border: 1px solid rgba(97,210,162,.55); color: var(--mint); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 108px 0 96px;
+      background:
+        radial-gradient(circle at 78% 28%, rgba(42,156,111,.24), transparent 30%),
+        linear-gradient(145deg, var(--navy), var(--navy-2));
+      color: #fff;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .34;
+      background-image:
+        linear-gradient(rgba(255,255,255,.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.032) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(to bottom, #000, transparent 92%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -240px;
+      top: -250px;
+      width: 720px;
+      height: 720px;
+      border: 1px solid rgba(97,210,162,.16);
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 90px rgba(97,210,162,.018), inset 0 0 0 180px rgba(97,210,162,.018);
+    }
+    .hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.25fr .75fr; gap: 64px; align-items: end; }
+    .eyebrow { margin: 0 0 22px; color: var(--mint); font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .hero h1 { max-width: 850px; margin: 0; font-size: clamp(56px, 7.2vw, 104px); line-height: .92; letter-spacing: -.065em; font-weight: 700; }
+    .hero h1 span { color: var(--mint); }
+    .hero-lead { max-width: 720px; margin: 34px 0 0; color: rgba(255,255,255,.68); font-size: 18px; line-height: 1.7; }
+    .hero-side { padding: 30px 0 6px; border-top: 1px solid rgba(255,255,255,.18); }
+    .hero-side strong { display: block; color: var(--mint); font-size: 42px; line-height: 1; letter-spacing: -.05em; }
+    .hero-side p { max-width: 360px; margin: 18px 0 0; color: rgba(255,255,255,.58); font-size: 14px; line-height: 1.7; }
+    .hero-proof { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 38px; color: rgba(255,255,255,.48); font-size: 11px; font-weight: 600; }
+    .hero-proof span + span::before { content: ""; display: inline-block; width: 4px; height: 4px; margin: 0 18px 3px 0; border-radius: 50%; background: var(--green); }
+
+    .section { padding: 104px 0; }
+    .section-paper { background: var(--paper); }
+    .section-white { background: #fff; }
+    .section-dark { background: var(--teal); color: #fff; }
+    .section-heading { display: grid; grid-template-columns: .7fr 1.3fr; gap: 48px; margin-bottom: 54px; }
+    .section-heading h2 { margin: 0; font-size: clamp(40px, 5vw, 70px); line-height: .98; letter-spacing: -.055em; font-weight: 700; }
+    .section-heading p:last-child { max-width: 700px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.75; }
+    .section-dark .section-heading p:last-child { color: rgba(255,255,255,.62); }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .feature { min-height: 245px; padding: 30px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.34); }
+    .feature-index { color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+    .feature h3 { margin: 56px 0 12px; font-size: 20px; letter-spacing: -.025em; }
+    .feature p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+    .tariff-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .tariff {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 520px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 1px 0 rgba(4,19,42,.02);
+    }
+    .tariff.featured {
+      border-color: var(--green);
+      background: var(--navy);
+      color: #fff;
+      box-shadow: var(--shadow);
+      transform: translateY(-10px);
+    }
+    .tariff-label { min-height: 25px; color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .featured .tariff-label { color: var(--mint); }
+    .tariff h3 { margin: 20px 0 0; font-size: 26px; letter-spacing: -.035em; }
+    .price { display: flex; align-items: baseline; gap: 8px; margin-top: 26px; }
+    .price strong { font-size: 48px; line-height: 1; letter-spacing: -.055em; }
+    .price span { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .featured .price span { color: rgba(255,255,255,.54); }
+    .tariff-intro { min-height: 68px; margin: 20px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+    .featured .tariff-intro { color: rgba(255,255,255,.62); }
+    .tariff ul { display: grid; gap: 13px; margin: 26px 0 0; padding: 24px 0 0; border-top: 1px solid var(--line); list-style: none; }
+    .featured ul { border-color: rgba(255,255,255,.13); }
+    .tariff li { position: relative; padding-left: 22px; color: var(--ink-2); font-size: 12px; line-height: 1.55; }
+    .featured li { color: rgba(255,255,255,.78); }
+    .tariff li::before { content: ""; position: absolute; left: 0; top: .5em; width: 7px; height: 7px; border: 2px solid var(--green); border-radius: 50%; }
+    .featured li::before { border-color: var(--mint); }
+    .tariff-note { margin-top: auto; padding-top: 24px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .featured .tariff-note { color: rgba(255,255,255,.45); }
+
+    .economy { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .economy-card { padding: 28px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.62); }
+    .economy-card span { color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .economy-card strong { display: block; margin-top: 18px; font-size: 34px; letter-spacing: -.045em; }
+    .economy-card p { margin: 10px 0 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+
+    .compare-wrap { overflow-x: auto; border: 1px solid rgba(255,255,255,.14); border-radius: 16px; }
+    .compare { width: 100%; min-width: 860px; border-collapse: collapse; }
+    .compare th, .compare td { padding: 22px 24px; border-bottom: 1px solid rgba(255,255,255,.1); text-align: left; font-size: 12px; }
+    .compare th { color: var(--mint); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .compare th:not(:first-child), .compare td:not(:first-child) { text-align: center; }
+    .compare tr:last-child td { border-bottom: 0; }
+    .yes { color: #fff; font-weight: 800; }
+    .no { color: rgba(255,255,255,.34); }
+    .compare-price { color: var(--mint); font-weight: 800; }
+
+    .monitoring-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+    .monitoring-copy h2 { margin: 0; font-size: clamp(42px, 5vw, 70px); line-height: .97; letter-spacing: -.055em; }
+    .monitoring-copy > p:not(.eyebrow) { margin: 26px 0 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
+    .events { display: grid; gap: 10px; }
+    .event { display: grid; grid-template-columns: 36px 1fr; gap: 18px; padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+    .event-dot { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #e1f3eb; color: var(--green-dark); font-size: 12px; font-weight: 800; }
+    .event strong { font-size: 13px; }
+    .event p { margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+    .sources { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--line); }
+    .source { padding: 24px 26px; background: #fff; }
+    .source strong { display: block; font-size: 13px; }
+    .source span { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+
+    .final { position: relative; overflow: hidden; padding: 94px 0; background: var(--navy); color: #fff; }
+    .final::after { content: ""; position: absolute; right: -160px; bottom: -330px; width: 700px; height: 700px; border: 1px solid rgba(97,210,162,.17); border-radius: 50%; box-shadow: inset 0 0 0 100px rgba(97,210,162,.02), inset 0 0 0 200px rgba(97,210,162,.02); }
+    .final-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.1fr .9fr; gap: 70px; align-items: end; }
+    .final h2 { margin: 0; font-size: clamp(46px, 6vw, 84px); line-height: .94; letter-spacing: -.06em; }
+    .final p { max-width: 650px; margin: 28px 0 0; color: rgba(255,255,255,.6); font-size: 15px; line-height: 1.7; }
+    .final-card { padding: 28px; border: 1px solid rgba(255,255,255,.13); border-radius: 14px; background: rgba(255,255,255,.055); }
+    .final-card span { color: var(--mint); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .final-card strong { display: block; margin-top: 18px; font-size: 30px; line-height: 1.15; letter-spacing: -.035em; }
+    .final-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 8px; font-size: 12px; font-weight: 800; text-decoration: none; cursor: pointer; }
+    .btn-green { border: 1px solid var(--green); background: var(--green); color: #fff; }
+    .btn-outline { border: 1px solid rgba(255,255,255,.2); background: transparent; color: #fff; }
+
+    .footer { padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1); background: var(--navy); color: rgba(255,255,255,.42); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 24px; font-size: 10px; line-height: 1.5; }
+
+    [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.2,1); }
+    [data-reveal].visible { opacity: 1; transform: none; }
+
+    @media (max-width: 1080px) {
+      .hero-grid, .section-heading, .monitoring-layout, .final-inner { grid-template-columns: 1fr; }
+      .hero-side { max-width: 520px; }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .tariff-grid { grid-template-columns: repeat(2, 1fr); }
+      .tariff.featured { transform: none; }
+    }
+
+    @media (max-width: 720px) {
+      .container { width: min(calc(100% - 32px), var(--container)); }
+      .topbar { height: 70px; }
+      .topbar-note, .header-link { display: none; }
+      .brand-mark { width: 37px; height: 37px; }
+      .brand-word { font-size: 19px; }
+      .header-button { min-height: 40px; padding: 0 12px; font-size: 10px; }
+      .hero { padding: 76px 0 70px; }
+      .hero h1 { font-size: clamp(48px, 15vw, 70px); }
+      .hero-lead { font-size: 16px; }
+      .section { padding: 72px 0; }
+      .section-heading { gap: 26px; margin-bottom: 36px; }
+      .section-heading h2 { font-size: 42px; }
+      .feature-grid, .tariff-grid, .economy, .sources { grid-template-columns: 1fr; }
+      .feature { min-height: 210px; }
+      .tariff { min-height: 0; }
+      .tariff-intro { min-height: 0; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media print {
+      @page { size: A4; margin: 14mm; }
+      body { background: #fff; }
+      .topbar { position: static; }
+      .header-button, .header-link, .final-actions { display: none !important; }
+      .hero, .section, .final { break-inside: avoid; }
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+      .tariff.featured { transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      [data-reveal] { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/credibil/credibil-final-heroes/" aria-label="Credibil">
+        <svg class="brand-mark" viewBox="0 0 290 296" aria-hidden="true">
+          <path d="M246 78C220 48 182 32 142 32C78 32 26 84 26 148C26 212 78 264 142 264C183 264 220 248 246 218" fill="none" stroke="#fff" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M86 151L126 191L220 91" fill="none" stroke="#2a9c6f" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-word">Credibil</span>
+      </a>
+      <span class="topbar-note">Коммерческое предложение</span>
+      <div class="topbar-actions">
+        <a class="header-link" href="#tariffs">Тарифы</a>
+        <a class="header-button" href="/credibil/credibil-final-heroes/">Открыть Credibil</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div data-reveal>
+          <p class="eyebrow">Credibil - проверка контрагентов в Молдове</p>
+          <h1>Данные для <span>деловых решений.</span></h1>
+          <p class="hero-lead">Проверяйте компании и связанных лиц, изучайте регистрационные сведения, владельцев, корпоративные связи, финансовые данные и доступные события. Сохраняйте результат проверки в PDF или Excel.</p>
+          <div class="hero-proof">
+            <span>Компании и связанные лица</span>
+            <span>Корпоративные связи</span>
+            <span>Отчёты PDF и Excel</span>
+            <span>Мониторинг изменений</span>
+          </div>
+        </div>
+        <aside class="hero-side" data-reveal>
+          <strong>от 999 MDL</strong>
+          <p>Четыре варианта доступа: пакеты на 50 и 100 проверок, безлимит для постоянной работы и полный безлимит с мониторингом и массовой проверкой.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div>
+            <p class="eyebrow">Возможности сервиса</p>
+            <h2>Одна проверка. Единая картина.</h2>
+          </div>
+          <p>Credibil объединяет доступные сведения о контрагенте в одной карточке. Пользователь начинает с поиска по названию, IDNO или ФИО и получает структурированную информацию для дальнейшей проверки.</p>
+        </div>
+
+        <div class="feature-grid" data-reveal>
+          <article class="feature"><span class="feature-index">01</span><h3>Регистрационные сведения</h3><p>Название, IDNO, статус, дата регистрации, организационно-правовая форма, адрес, CAEM и другие доступные регистрационные поля.</p></article>
+          <article class="feature"><span class="feature-index">02</span><h3>Учредители и руководство</h3><p>Доступные сведения об учредителях, администраторах и руководителях, ролях и долях владения.</p></article>
+          <article class="feature"><span class="feature-index">03</span><h3>Корпоративные связи</h3><p>Связанные лица и организации, роли в других компаниях, доли и статус связанных компаний.</p></article>
+          <article class="feature"><span class="feature-index">04</span><h3>Финансовые сведения</h3><p>Доступная финансовая отчётность по периодам: выручка, прибыль, активы, обязательства, капитал и другие показатели.</p></article>
+          <article class="feature"><span class="feature-index">05</span><h3>События и реестры</h3><p>Судебные дела, публичные сведения UNEJ, государственные закупки, аккредитации MOLDAC и налоговая задолженность при наличии данных.</p></article>
+          <article class="feature"><span class="feature-index">06</span><h3>Результат проверки</h3><p>Карточка контрагента, структурированные данные и экспорт доступных сведений в PDF и Excel.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white" id="tariffs">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div>
+            <p class="eyebrow">Тарифы Credibil</p>
+            <h2>Выберите объём проверки.</h2>
+          </div>
+          <p>Пакетные тарифы подходят для периодических проверок. Безлимитные варианты - для компаний, где проверка контрагентов является постоянным рабочим процессом.</p>
+        </div>
+
+        <div class="tariff-grid" data-reveal>
+          <article class="tariff">
+            <div class="tariff-label">Пакет</div>
+            <h3>50 проверок</h3>
+            <div class="price"><strong>999</strong><span>MDL</span></div>
+            <p class="tariff-intro">Для периодической проверки клиентов, поставщиков и партнёров.</p>
+            <ul>
+              <li>50 проверок</li>
+              <li>Стандартные возможности проверки Credibil</li>
+              <li>Экспорт доступных данных в PDF и Excel</li>
+            </ul>
+            <p class="tariff-note">Стоимость одной проверки при полном использовании пакета - 19,98 MDL.</p>
+          </article>
+
+          <article class="tariff">
+            <div class="tariff-label">Пакет</div>
+            <h3>100 проверок</h3>
+            <div class="price"><strong>1 490</strong><span>MDL</span></div>
+            <p class="tariff-intro">Для регулярной проверки большего количества контрагентов.</p>
+            <ul>
+              <li>100 проверок</li>
+              <li>Стандартные возможности проверки Credibil</li>
+              <li>Экспорт доступных данных в PDF и Excel</li>
+            </ul>
+            <p class="tariff-note">Стоимость одной проверки при полном использовании пакета - 14,90 MDL.</p>
+          </article>
+
+          <article class="tariff">
+            <div class="tariff-label">Безлимит</div>
+            <h3>Безлимит</h3>
+            <div class="price"><strong>4 990</strong><span>MDL</span></div>
+            <p class="tariff-intro">Для постоянной индивидуальной проверки контрагентов без ограничения количества проверок.</p>
+            <ul>
+              <li>Безлимитное количество проверок</li>
+              <li>Стандартные возможности проверки Credibil</li>
+              <li>Без мониторинга компаний</li>
+              <li>Без массовой проверки</li>
+            </ul>
+            <p class="tariff-note">Безлимит относится к количеству проверок.</p>
+          </article>
+
+          <article class="tariff featured">
+            <div class="tariff-label">Полный безлимит</div>
+            <h3>Безлимит со всем</h3>
+            <div class="price"><strong>9 900</strong><span>MDL</span></div>
+            <p class="tariff-intro">Максимальный тариф для постоянного процесса проверки и контроля контрагентов.</p>
+            <ul>
+              <li>Безлимитное количество проверок</li>
+              <li>Стандартные возможности проверки Credibil</li>
+              <li>Мониторинг компаний и изменений</li>
+              <li>Массовая проверка</li>
+            </ul>
+            <p class="tariff-note">Полный вариант с функциями, исключёнными из тарифа 4 990 MDL.</p>
+          </article>
+        </div>
+
+        <div class="economy" data-reveal>
+          <div class="economy-card"><span>Пакет 50</span><strong>19,98 MDL</strong><p>Стоимость одной проверки при использовании всех 50 проверок.</p></div>
+          <div class="economy-card"><span>Пакет 100</span><strong>14,90 MDL</strong><p>Два пакета по 50 стоили бы 1 998 MDL. Пакет на 100 проверок - 1 490 MDL, экономия 508 MDL.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div>
+            <p class="eyebrow">Сравнение</p>
+            <h2>Четыре тарифа без лишней сложности.</h2>
+          </div>
+          <p>Основное различие - количество проверок. В полном безлимите дополнительно доступны мониторинг и массовая проверка.</p>
+        </div>
+
+        <div class="compare-wrap" data-reveal>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Возможность</th>
+                <th>50 проверок</th>
+                <th>100 проверок</th>
+                <th>Безлимит</th>
+                <th>Полный безлимит</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Стоимость</td><td class="compare-price">999 MDL</td><td class="compare-price">1 490 MDL</td><td class="compare-price">4 990 MDL</td><td class="compare-price">9 900 MDL</td></tr>
+              <tr><td>Количество проверок</td><td class="yes">50</td><td class="yes">100</td><td class="yes">Безлимит</td><td class="yes">Безлимит</td></tr>
+              <tr><td>Стандартная проверка Credibil</td><td class="yes">Включена</td><td class="yes">Включена</td><td class="yes">Включена</td><td class="yes">Включена</td></tr>
+              <tr><td>PDF и Excel</td><td class="yes">Доступны</td><td class="yes">Доступны</td><td class="yes">Доступны</td><td class="yes">Доступны</td></tr>
+              <tr><td>Мониторинг компаний</td><td class="no">Не входит</td><td class="no">Не входит</td><td class="no">Не входит</td><td class="yes">Входит</td></tr>
+              <tr><td>Массовая проверка</td><td class="no">Не входит</td><td class="no">Не входит</td><td class="no">Не входит</td><td class="yes">Входит</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-paper">
+      <div class="container monitoring-layout">
+        <div class="monitoring-copy" data-reveal>
+          <p class="eyebrow">Мониторинг</p>
+          <h2>Проверка сегодня. Контроль изменений дальше.</h2>
+          <p>В полном безлимитном тарифе компанию можно добавить в мониторинг. Credibil фиксирует изменения доступных данных и формирует уведомления, когда обнаруживает новое состояние.</p>
+        </div>
+        <div class="events" data-reveal>
+          <article class="event"><div class="event-dot">01</div><div><strong>Регистрационные изменения</strong><p>Статус, название, организационно-правовая форма, адрес и CAEM.</p></div></article>
+          <article class="event"><div class="event-dot">02</div><div><strong>Изменения участников</strong><p>Количество и состав доступных учредителей и руководителей.</p></div></article>
+          <article class="event"><div class="event-dot">03</div><div><strong>Новые доступные события</strong><p>Изменения налоговой задолженности, новые судебные события и публичные сведения UNEJ при их появлении в подключённых данных.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <div>
+            <p class="eyebrow">Источники данных</p>
+            <h2>Данные из подключённых источников Молдовы.</h2>
+          </div>
+          <p>Credibil собирает и структурирует сведения из государственных, официальных и специализированных источников. Наличие конкретных данных зависит от соответствующего источника и доступности записи.</p>
+        </div>
+        <div class="sources" data-reveal>
+          <div class="source"><strong>Государственный портал открытых данных</strong><span>Регистрационные сведения о компаниях и связанные записи.</span></div>
+          <div class="source"><strong>Государственная налоговая служба</strong><span>Доступные сведения о налоговой задолженности.</span></div>
+          <div class="source"><strong>Национальное бюро статистики</strong><span>Доступная финансовая отчётность.</span></div>
+          <div class="source"><strong>Национальный портал судебных инстанций</strong><span>Доступные судебные дела и события.</span></div>
+          <div class="source"><strong>Национальный союз судебных исполнителей</strong><span>Публичные сведения UNEJ.</span></div>
+          <div class="source"><strong>MTender и MOLDAC</strong><span>Государственные закупки и доступные сведения об аккредитациях.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="container final-inner">
+        <div data-reveal>
+          <p class="eyebrow">Credibil</p>
+          <h2>Проверяйте контрагентов до принятия решения.</h2>
+          <p>Найдите компанию или связанное лицо, изучите доступные сведения и корпоративные связи, сохраните результат проверки и используйте мониторинг для дальнейшего контроля.</p>
+        </div>
+        <aside class="final-card" data-reveal>
+          <span>Тарифы от</span>
+          <strong>999 MDL за пакет из 50 проверок</strong>
+          <div class="final-actions">
+            <a class="btn btn-green" href="#tariffs">Посмотреть тарифы</a>
+            <a class="btn btn-outline" href="/credibil/credibil-final-heroes/">Открыть Credibil</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>Credibil - сервис проверки контрагентов в Республике Молдова.</span>
+      <span>Коммерческое предложение</span>
+    </div>
+  </footer>
+
+  <script>
+    const items = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach((item) => observer.observe(item));
+    } else {
+      items.forEach((item) => item.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
